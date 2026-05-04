@@ -83,6 +83,66 @@ scripts/install_skill.py \
 
 `install_skill.py` refuses to overwrite an existing skill unless `--force` is passed.
 
+## Example output (trimmed)
+
+This is a shortened excerpt from a real run (2026-05-04) using the example query
+above (`obsidian`, `notion`, `note taking`, `knowledge base`).
+
+```json
+{
+  "query": {
+    "keywords": ["obsidian", "notion"],
+    "phrases": ["note taking", "knowledge base"],
+    "extra_urls": []
+  },
+  "counts": {
+    "total_candidates": 63,
+    "enriched": 8,
+    "repo_hits": 154
+  },
+  "candidates": [
+    {
+      "nameWithOwner": "qwibitai/nanoclaw",
+      "path": ".claude/skills/add-karpathy-llm-wiki/SKILL.md",
+      "url": "https://github.com/qwibitai/nanoclaw/blob/8bdc5c421735c60f747b9bc6fcfb5768a49ac9c5/.claude/skills/add-karpathy-llm-wiki/SKILL.md",
+      "matched_query": "ph:knowledge base",
+      "frontmatter": {
+        "name": "add-karpathy-llm-wiki",
+        "description": "Add a persistent wiki knowledge base to a NanoClaw group. Based on Karpathy's LLM Wiki pattern. Triggers on \"add wiki\", \"wiki\", \"knowledge base\", \"llm wiki\", \"karpathy wiki\"."
+      },
+      "file_last_commit": "2026-04-17T06:22:45Z"
+    },
+    {
+      "nameWithOwner": "AgriciDaniel/claude-obsidian",
+      "path": "skills/wiki/SKILL.md",
+      "url": "https://github.com/AgriciDaniel/claude-obsidian/blob/75d3b6feb77b96c6bb16599c4550cc9703553d87/skills/wiki/SKILL.md",
+      "matched_query": "ph:knowledge base",
+      "frontmatter": {
+        "name": "wiki",
+        "description": "Claude + Obsidian knowledge companion. Sets up a persistent wiki vault, scaffolds structure, and routes to specialized sub-skills."
+      },
+      "file_last_commit": "2026-04-13T22:14:59Z"
+    }
+  ]
+}
+```
+
+### Example ranked output (what the agent should present)
+
+```text
+1) add-karpathy-llm-wiki — qwibitai/nanoclaw
+   Why: Strong match for "knowledge base" + LLM Wiki pattern; updated 2026-04-17.
+   URL: https://github.com/qwibitai/nanoclaw/blob/8bdc5c421735c60f747b9bc6fcfb5768a49ac9c5/.claude/skills/add-karpathy-llm-wiki/SKILL.md
+
+2) wiki — AgriciDaniel/claude-obsidian
+   Why: Obsidian-focused persistent vault setup; updated 2026-04-13.
+   URL: https://github.com/AgriciDaniel/claude-obsidian/blob/75d3b6feb77b96c6bb16599c4550cc9703553d87/skills/wiki/SKILL.md
+
+3) knowledge-base — Wellux/claude-code-deprecated
+   Why: General-purpose second-brain skill; updated 2026-04-06.
+   URL: https://github.com/Wellux/claude-code-deprecated/blob/c2fbab4ac9d5c0a4a5326fcb62243595c936be67/.claude/skills/knowledge-base/SKILL.md
+```
+
 ## Privacy and safety
 
 This repo does not contain API keys, personal machine paths, or user-specific configuration. It shells out to `gh` and only reads public GitHub metadata/content for discovery unless your authenticated GitHub account can see private repos in search results.
