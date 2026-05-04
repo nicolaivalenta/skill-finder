@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Compile scripts
+        run: python -m py_compile scripts/find_skills.py scripts/install_skill.py
+      - name: Check executable bits
+        run: test -x scripts/find_skills.py && test -x scripts/install_skill.py
+      - name: Check installer rejects invalid URLs
+        run: |
+          if scripts/install_skill.py not-a-url 2>&1 | grep -q "not a github.com blob URL"; then
+            exit 0
+          fi
+          exit 1
