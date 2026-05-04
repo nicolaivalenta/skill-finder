@@ -1,5 +1,7 @@
 # Skill Finder
 
+![Skill Finder social preview](assets/social-preview.png)
+
 Find Claude skills by what they actually do, not by which repo already has the most stars.
 
 `skill-finder` is a Claude/Codex skill for discovering `SKILL.md` files on GitHub. It searches for the file shape shared by Claude skills, enriches matches with frontmatter and per-file recency, then asks the agent to rank each candidate by content relevance instead of repo popularity.
