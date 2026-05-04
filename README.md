@@ -68,6 +68,42 @@ The agent should:
 6. Inline the most promising `SKILL.md` files.
 7. Offer to install one only after you choose it.
 
+
+## Example
+
+**User:** Find me a Claude skill for invoice extraction.
+
+**Agent runs:**
+```bash
+python scripts/find_skills.py --keywords "invoice,receipt,tax" --phrases "expense tracking"
+```
+
+**JSON output from find_skills.py** (abbreviated):
+```json
+[
+  {
+    "path": "invoice-extractor/SKILL.md",
+    "repository": { "fullName": "alice/invoice-extractor" },
+    "lastCommitDate": "2026-04-15T10:23:00Z",
+    "frontmatter": { "name": "invoice-extractor", "description": "Extract line items, totals, and dates from invoice PDFs." }
+  },
+  {
+    "path": "skills/invoice/SKILL.md",
+    "repository": { "fullName": "bob/finance-tools" },
+    "lastCommitDate": "2026-03-20T08:00:00Z",
+    "frontmatter": { "name": "invoice", "description": "Parse invoices and export to CSV." }
+  }
+]
+```
+
+**Agent presents to user:**
+| Skill | Description | Last Updated |
+|-------|-------------|-------------|
+| alice/invoice-extractor | Extract line items, totals, and dates from invoice PDFs. | 2026-04-15 |
+| bob/finance-tools#invoice | Parse invoices and export to CSV. | 2026-03-20 |
+
+The agent ranks by content relevance (both match "invoice") and recency (alice's is newer).
+
 ## Direct script examples
 
 ```bash
